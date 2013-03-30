@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+function displayDate()
+{
+document.getElementById("demo").innerHTML=Date();
+}
+</script>
+</head>
+<body onLoad="displayDate()">
+<p>javascript err page on 52woo.com</p>
+</body>
+</html>
