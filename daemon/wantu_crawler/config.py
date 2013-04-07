@@ -6,7 +6,7 @@ Created on 2012-7-12
 '''
 
 job_server = 'localhost:4730'
-root_dir = '/data/wantu/'
+root_dir = '/data/wantu/pictures'
 redis_server = 'localhost'
 redis_port = 6379
 logging_host = 'localhost'

@@ -98,9 +98,7 @@ def get_content_from_detail(soup, url):
     ajax_url = ajax_url % (picId, userId, albumId)
     resp = json.loads(httplib.urlopen(ajax_url)[2].decode('gbk'))
     picture = resp['data']['models'][0]['picPath']
-    description = resp['data']['models'][0]['desc']
-#    picture = soup.find('div', 'pic-wrap').img['src']
-#    description = soup.find('div', 'desc').content[1]
+    description = httplib.html_unescape(resp['data']['models'][0]['desc'])
     return (picture, description)
 
 #used for pipeline work

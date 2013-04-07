@@ -12,13 +12,14 @@ db = DAL('mysql://test:123456@localhost/wantu', pool_size=10, db_codec='latin1')
 db.define_table('urlresource',
     Field('id', 'id'),
     Field('url', 'string'),
-    Field('pagetype', 'string'),
+    Field('pagetype', 'integer'),
     Field('referrerurl', 'string'),
     Field('description', 'string'),
     Field('savedpath', 'string'),
     Field('createtime', 'integer'),
     Field('lastmodtime', 'integer'),
-    Field('isfinished', 'integer'))#,
+    Field('isfinished', 'integer', default=0),
+    Field('ispublished', 'integer', default=0))#,
     #migrate=False)
 
 db.executesql("set autocommit=True")
@@ -38,7 +39,11 @@ def save_url(url, **fields):
     row = db(db.urlresource.url == url).select().first()
     fields.pop('createtime', None)
     fields.pop('lastmodtime', None)
+    fields.pop('ispublished', None)
     now = int(time.time())
+    for k in fields.keys():
+        if isinstance(fields[k], unicode):
+            fields[k] = fields[k].encode('utf8')
     if row:
         if row.isfinished == 1:
             fields.pop('isfinished', None) # never roll back to init status
@@ -52,6 +57,19 @@ def save_url(url, **fields):
 def is_processed(url):
     db.executesql("set autocommit=True")
     return True if db((db.urlresource.url == url) & (db.urlresource.isfinished == 1)).select() else False
+
+def get_available_rows(count):
+    db.executesql("set autocommit=True")
+    rows = db((db.urlresource.pagetype == PageType.PicturePage) & 
+              (db.urlresource.isfinished == 1) & 
+              (db.urlresource.ispublished == 0)).select(limitby=(0, count))
+    return rows
+    
+def set_published(url):
+    db.executesql("set autocommit=True")
+    row = db((db.urlresource.url == url) & (db.urlresource.isfinished == 1)).select().first()
+    row.update_record(lastmodtime=int(time.time()), ispublished=1)
+    refresh_context(db)
 
 class PageType(object):
     AlbumIndex = 0
