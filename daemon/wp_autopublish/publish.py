@@ -8,16 +8,20 @@ Created on 2013-3-30
 import os
 import sys
 import mimetypes
+from random import Random
 from argparse import ArgumentParser
 from uuid import uuid4
-from wordpress_xmlrpc import Client, WordPressPost, WordPressMedia
+from wordpress_xmlrpc import Client, WordPressPost, WordPressMedia, WordPressUser
 from wordpress_xmlrpc.compat import xmlrpc_client
-from wordpress_xmlrpc.methods import media, posts
+from wordpress_xmlrpc.methods import media, posts, users
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 rpc_service_url = r'http://www.52woo.com/xmlrpc.php'
 user = 'admin'
 password = 'User@123'
+
+account_ids = range(1,8)
+r=Random()
 
 def upload(pic):
     (_ , ext) = os.path.splitext(pic)
@@ -36,15 +40,16 @@ def publish(pic, title, content):
     wp_client = Client(rpc_service_url, user, password)
     post = WordPressPost()
     post.title = title
-    post.content = '%s\n\n<a href="%s"><img class="alignnone size-full wp-image-%s" alt="%s" src="%s" /></a>' % (content, attachment["url"], attachment["id"], attachment["file"], attachment["url"])
+    post.content = "%s\n\n<a href='%s'><img class='alignnone size-full wp-image-%s' alt='%s' src='%s' /></a>" % (content, attachment['url'], attachment['id'], attachment['file'], attachment['url'])
     #post.tags='test, test2'
     #post.categories=['pet','picture']
-    post.thumbnail = attachment["id"]
+    post.thumbnail = attachment['id']
     #change status to publish
     post.id = wp_client.call(posts.NewPost(post))
     post.post_status = 'publish'
     post.comment_status = 'open'
     post.ping_status = 'open'
+    post.user = account_ids[r.randint(0, len(account_ids)-1)]
     wp_client.call(posts.EditPost(post.id, post))
     return post.id
 
@@ -61,7 +66,9 @@ if __name__ == '__main__':
     #    quickpost(ns.count)
     #else:
     #    parser.print_help()
-    p1 = getPost(4)
-    p2 = getPost(177)
-    import pdb;pdb.set_trace()
+    #p1 = getPost(4)
+    #p2 = getPost(177)
+    #import pdb;pdb.set_trace()
+    publish(r'/cygdrive/c/Users/fengclient/Pictures/a.png','test','helloworld')
+    pass
     

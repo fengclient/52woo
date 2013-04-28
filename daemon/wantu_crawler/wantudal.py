@@ -65,6 +65,12 @@ def get_available_rows(count):
               (db.urlresource.ispublished == 0)).select(limitby=(0, count))
     return rows
     
+def get_unfinished_rows(count):
+    db.executesql("set autocommit=True")
+    rows = db((db.urlresource.isfinished == 0) & 
+              (db.urlresource.ispublished == 0)).select(limitby=(0, count))
+    return rows
+
 def set_published(url):
     db.executesql("set autocommit=True")
     row = db((db.urlresource.url == url) & (db.urlresource.isfinished == 1)).select().first()

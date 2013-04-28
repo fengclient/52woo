@@ -43,7 +43,9 @@ def find_next_indexes(soup):
     if indexes:
         max_p = max([int(tag.string) for tag in indexes if tag.string.isdigit()])
         result = urlsplit(httplib.html_unescape(indexes[0]['href']))
-        query_dict = parse_qs(result.query)
+        #i don't want patch urllib.unquote. bug description: http://bugs.python.org/issue1712522
+        #quick fix is convert to ascii.
+        query_dict = parse_qs(result.query.encode('ascii'))
         for p in range(1, max_p + 1):
             query_dict['p'] = p
             result = SplitResult(result.scheme, result.netloc, result.path,
