@@ -37,23 +37,22 @@
 				<?php dynamic_sidebar( 'secondary-widget-area' ); ?>                
 			</ul>
 
-<div id="float" class="div1">
+<!--<div id="float" class="div1">
 <div class="widget-container">
-<script type="text/javascript"><!--
+<script type="text/javascript">
 google_ad_client = "ca-pub-7823116249740234";
 /* 300x250广告图片 */
 google_ad_slot = "7001700065";
 google_ad_width = 300;
 google_ad_height = 250;
-//-->
 </script>
 <script type="text/javascript"
 src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 </script>
 </div>           
 </div><!-- #float -->
-            
-		</div><!-- #secondary .widget-area -->
+
+</div><!-- #secondary .widget-area -->
 
 <?php endif; ?>
 

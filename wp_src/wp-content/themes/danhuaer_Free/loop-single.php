@@ -47,22 +47,23 @@
 							
 						}?>
 						
-				</div><!-- .entry-utility -->           
-              
+				 </div>
+            <!--
               <div class="argslist img-row">
                <h3 class="content-title">订阅我们</h3>
                     <div class="getlike-col">
                      <div class="mail_send">
                      <form method="post" target="_blank" action="http://list.qq.com/cgi-bin/qf_compose_send">
                      <input type="hidden" value="qf_booked_feedback" name="t">
-                     <input type="hidden" value="47d5a6bb79fb6ce9df3e6a28edc554d650d07bfbb6f95ba1" name="id">
+                     <input type="hidden" value="f9d6dcae07cd44b6cf8cedda5d83bfa6ee05948f369749c3" name="id">
                      <input type="text" onblur="if (this.value == '') {this.value = '填写你的邮箱地址，订阅我们的最新精彩内容推送';}" onfocus="if (this.value == '填写你的邮箱地址，订阅我们的最新精彩内容推送') {this.value = '';}" value="填写你的邮箱地址，订阅我们的最新精彩内容推送" class="rsstxt" name="to" id="to" style="width: 70%;color: #ccc;*height:21px;_width:340px">
                      <input type="submit" class="subbutton" value="确认订阅">
                      </form> 
                      </div>
-                    </div><!-- .getlike-col -->
+                    </div>
+                  
               </div>       
-                 
+                 -->
                
                     
              <div class="argslist img-row">
@@ -85,17 +86,16 @@
                * 暂无最新文章
                <?php endif; wp_reset_query(); ?>
                </div>
-              <div class="single_r_area ld_bg radius"> 
-               <script type="text/javascript"><!--
+              <!--<div class="single_r_area ld_bg radius"> 
+                <script type="text/javascript">
                 google_ad_client = "ca-pub-7823116249740234";
                 /* 250x250图片广告 */
                 google_ad_slot = "5593757277";
                 google_ad_width = 250;
                 google_ad_height = 250;
-                //-->
                </script>
                <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
-              </div>                           
+              </div>-->                           
               </div><!-- .argslist img-row -->
  
 				</div><!-- #post-## -->
